@@ -1,0 +1,16 @@
+<table>
+    <tr>
+      <th>Nome</th>
+      <th>CPF/CNPJ</th>
+      <th>Email</th>
+      <th>Ações</th>
+    </tr>
+    <tr *ngFor="let cliente of clientes">
+      <td>{{ cliente.nome }}</td>
+      <td>{{ cliente.cpfCnpj }}</td>
+      <td>{{ cliente.email }}</td>
+      <td>
+        <button (click)="excluirCliente(cliente.id)">Excluir</button>
+      </td>
+    </tr>
+  </table>

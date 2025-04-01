@@ -1,0 +1,31 @@
+<form [formGroup]="clienteForm" (ngSubmit)="salvarCliente()">
+    <label>Nome:</label>
+    <input type="text" formControlName="nome" required />
+  
+    <label>CPF/CNPJ:</label>
+    <input type="text" formControlName="cpfCnpj" required mask="000.000.000-00"/>
+  
+    <label>Tipo:</label>
+    <select formControlName="tipo">
+      <option value="F">Pessoa Física</option>
+      <option value="J">Pessoa Jurídica</option>
+    </select>
+  
+    <label *ngIf="clienteForm.value.tipo === 'F'">Data de Nascimento:</label>
+    <input type="date" formControlName="dataNascimento" *ngIf="clienteForm.value.tipo === 'F'" />
+  
+    <label>Telefone:</label>
+    <input type="text" formControlName="telefone" required />
+  
+    <label>Email:</label>
+    <input type="email" formControlName="email" required />
+  
+    <label *ngIf="clienteForm.value.tipo === 'J'">Inscrição Estadual:</label>
+    <input type="text" formControlName="inscricaoEstadual" *ngIf="clienteForm.value.tipo === 'J'" />
+  
+    <label *ngIf="clienteForm.value.tipo === 'J'">
+      <input type="checkbox" formControlName="isentoIE" /> Isento de Inscrição Estadual
+    </label>
+  
+    <button type="submit">Salvar</button>
+  </form>
