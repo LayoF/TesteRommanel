@@ -1,0 +1,21 @@
+# Usar a imagem oficial do .NET SDK para build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /app
+
+# Copiar arquivos do projeto e restaurar dependências
+COPY *.csproj ./
+RUN dotnet restore
+
+# Copiar todo o código-fonte e compilar a aplicação
+COPY . ./
+RUN dotnet publish -c Release -o out
+
+# Usar a imagem do runtime do .NET para execução
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
+WORKDIR /app
+COPY --from=build /app/out .
+
+# Expor portas e iniciar a aplicação
+EXPOSE 5000
+EXPOSE 5001
+ENTRYPOINT ["dotnet", "Backend.dll"]
